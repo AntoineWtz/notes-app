@@ -1,16 +1,29 @@
-// NoteDetail.tsx
 import React from 'react';
 
-interface NoteDetailProps {
+interface Note {
+    id: number;
     title: string;
     content: string;
 }
 
-const NoteDetail: React.FC<NoteDetailProps> = ({ title, content }) => {
+interface NoteDetailProps {
+    note: Note;
+    onClose: () => void;
+}
+
+const NoteDetail: React.FC<NoteDetailProps> = ({ note, onClose }) => {
     return (
-        <div className="bg-white shadow-md rounded-md p-4 mb-4">
-            <h2 className="text-xl font-bold mb-2">{title}</h2>
-            <p className="text-gray-700">{content}</p>
+        <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center">
+            <div className="bg-white rounded-md shadow-lg p-6 w-full max-w-lg">
+                <h2 className="text-2xl font-bold mb-4">{note.title}</h2>
+                <p className="mb-4">{note.content}</p>
+                <button
+                    onClick={onClose}
+                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                >
+                    Close
+                </button>
+            </div>
         </div>
     );
 };

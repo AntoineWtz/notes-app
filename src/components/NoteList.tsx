@@ -1,11 +1,17 @@
-// NoteList.tsx
 import React from 'react';
+import { useNotes } from '../context/NoteContext';
+import NoteItem from './NoteItem';
 
 const NoteList: React.FC = () => {
+    const { notes } = useNotes();
+
     return (
-        <div className="bg-gray-100 min-h-screen py-8 px-4">
-            <h1 className="text-3xl font-bold text-center mb-8">My Notes</h1>
-            {/* Placeholder for note items */}
+        <div className="flex flex-wrap flex-col justify-evenly lg:flex-row">
+            {notes.length > 0 ? (
+                notes.map(note => <NoteItem key={note.id} note={note} />)
+            ) : (
+                <p className="text-center text-gray-500">No notes available</p>
+            )}
         </div>
     );
 };

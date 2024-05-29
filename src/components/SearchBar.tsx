@@ -1,11 +1,24 @@
-// SearchBar.tsx
-import React from 'react';
+import React, { useState } from 'react';
+import { useNotes } from '../services/noteService';
 
 const SearchBar: React.FC = () => {
+    const { searchNotes } = useNotes();
+    const [query, setQuery] = useState('');
+
+    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setQuery(e.target.value);
+        searchNotes(e.target.value);
+    };
+
     return (
-        <div className="flex items-center bg-white shadow-md rounded-md p-2 mb-4">
-            <input type="text" placeholder="Search notes..." className="flex-1 p-2 outline-none" />
-            <button className="bg-blue-500 text-white px-4 py-2 rounded-md ml-2">Search</button>
+        <div className="m-4 p-4 bg-purple-100 shadow-md rounded-md">
+            <input
+                type="text"
+                value={query}
+                onChange={handleSearch}
+                placeholder="Search notes..."
+                className="w-full p-2 rounded-md outline-none"
+            />
         </div>
     );
 };

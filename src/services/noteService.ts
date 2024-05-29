@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface Note {
     id: number;
@@ -8,13 +8,32 @@ interface Note {
 
 export const useNotes = () => {
     const [notes, setNotes] = useState<Note[]>([]);
+    const [filteredNotes, setFilteredNotes] = useState<Note[]>([]);
+
+    useEffect(() => {
+        setFilteredNotes(notes);
+    }, [notes]);
 
     const addNote = (note: Omit<Note, 'id'>) => {
-        const newNote: Note = { ...note, id: notes.length + 1 };
+        const newNote = { ...note, id: Date.now() };
         setNotes([...notes, newNote]);
     };
 
-    // Ajoutez d'autres opérations CRUD si nécessaire
+    const deleteNote = (id: number) => {
+        setNotes(notes.filter(note => note.id !== id));
+    };
 
-    return { notes, addNote };
+    const searchNotes = (query: string) => {
+        setFilteredNotes(notes.filter(note =>
+            note.title.toLowerCase().includes(query.toLowerCase()) ||
+            note.content.toLowerCase().includes(query.toLowerCase())
+        ));
+    };
+
+    return {
+        notes: filteredNotes,
+        addNote,
+        deleteNote,
+        searchNotes
+    };
 };

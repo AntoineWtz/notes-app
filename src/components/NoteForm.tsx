@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNotes } from '../services/noteService';
+import { useNotes } from '../context/NoteContext';
 
 const NoteForm: React.FC = () => {
     const { addNote } = useNotes();
@@ -15,8 +15,8 @@ const NoteForm: React.FC = () => {
     };
 
     return (
-        <div className="bg-white shadow-md rounded-md p-4 mb-4">
-            <h2 className="text-lg font-bold mb-4">Create a new note</h2>
+        <div className="bg-sky-100 shadow-md rounded-md p-4 m-4">
+            <h2 className="text-lg font-bold m-4">Create a new note</h2>
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"
@@ -32,7 +32,7 @@ const NoteForm: React.FC = () => {
                     className="w-full p-2 rounded-md mb-2 outline-none"
                     rows={4}
                 ></textarea>
-                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md">
+                <button type="submit" className="bg-sky-300 hover:bg-sky-600 duration-200 text-white px-4 py-2 rounded-md mx-auto block">
                     Create Note
                 </button>
             </form>
