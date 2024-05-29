@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, ReactNode } from 'react';
+import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
 
 interface Note {
     id: number;
@@ -25,8 +25,16 @@ export const useNotes = (): NoteContextProps => {
 };
 
 export const NoteProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const [notes, setNotes] = useState<Note[]>([]);
-    const [filteredNotes, setFilteredNotes] = useState<Note[]>([]);
+    const [notes, setNotes] = useState<Note[]>(() => {
+        const savedNotes = localStorage.getItem('notes');
+        return savedNotes ? JSON.parse(savedNotes) : [];
+    });
+    const [filteredNotes, setFilteredNotes] = useState<Note[]>(notes);
+
+    useEffect(() => {
+        localStorage.setItem('notes', JSON.stringify(notes));
+        setFilteredNotes(notes);
+    }, [notes]);
 
     const addNote = (note: Omit<Note, 'id'>) => {
         const newNote = { ...note, id: Date.now() };
