@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNotes } from '../services/noteService';
+import { useNotes } from '../context/NoteContext';
 
 const SearchBar: React.FC = () => {
     const { searchNotes } = useNotes();
@@ -11,7 +11,7 @@ const SearchBar: React.FC = () => {
     };
 
     return (
-        <div className="m-4 p-4 bg-purple-100 shadow-md rounded-md">
+        <div className="mt-12 mb-12 m-4 p-4 bg-purple-100 shadow-lg rounded-xl">
             <input
                 type="text"
                 value={query}

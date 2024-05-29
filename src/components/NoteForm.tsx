@@ -15,7 +15,7 @@ const NoteForm: React.FC = () => {
     };
 
     return (
-        <div className="bg-sky-100 shadow-md rounded-md p-4 m-4">
+        <div className="bg-sky-100 shadow-lg rounded-xl p-4 m-4">
             <h2 className="text-lg font-bold m-4">Create a new note</h2>
             <form onSubmit={handleSubmit}>
                 <input

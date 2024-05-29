@@ -8,8 +8,10 @@ interface Note {
 
 interface NoteContextProps {
     notes: Note[];
+    filteredNotes: Note[];
     addNote: (note: Omit<Note, 'id'>) => void;
     deleteNote: (id: number) => void;
+    searchNotes: (query: string) => void;
 }
 
 const NoteContext = createContext<NoteContextProps | undefined>(undefined);
@@ -24,18 +26,34 @@ export const useNotes = (): NoteContextProps => {
 
 export const NoteProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [notes, setNotes] = useState<Note[]>([]);
+    const [filteredNotes, setFilteredNotes] = useState<Note[]>([]);
 
     const addNote = (note: Omit<Note, 'id'>) => {
         const newNote = { ...note, id: Date.now() };
-        setNotes((prevNotes) => [...prevNotes, newNote]);
+        setNotes((prevNotes) => {
+            const updatedNotes = [...prevNotes, newNote];
+            setFilteredNotes(updatedNotes);
+            return updatedNotes;
+        });
     };
 
     const deleteNote = (id: number) => {
-        setNotes((prevNotes) => prevNotes.filter(note => note.id !== id));
+        setNotes((prevNotes) => {
+            const updatedNotes = prevNotes.filter(note => note.id !== id);
+            setFilteredNotes(updatedNotes);
+            return updatedNotes;
+        });
+    };
+
+    const searchNotes = (query: string) => {
+        setFilteredNotes(notes.filter(note =>
+            note.title.toLowerCase().includes(query.toLowerCase()) ||
+            note.content.toLowerCase().includes(query.toLowerCase())
+        ));
     };
 
     return (
-        <NoteContext.Provider value={{ notes, addNote, deleteNote }}>
+        <NoteContext.Provider value={{ notes, filteredNotes, addNote, deleteNote, searchNotes }}>
             {children}
         </NoteContext.Provider>
     );

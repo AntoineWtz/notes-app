@@ -8,7 +8,7 @@ const App: React.FC = () => {
   return (
     <NoteProvider>
       <div className="container mx-auto p-4">
-        <h1 className="text-3xl font-bold m-4 text-center">Notes App</h1>
+        <h1 className="text-4xl font-bold m-8 text-center text-white">Notes App</h1>
         <NoteForm />
         <SearchBar />
         <NoteList />

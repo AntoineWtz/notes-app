@@ -5,7 +5,7 @@ const NoteItem: React.FC<{ note: { id: number, title: string, content: string } 
     const { deleteNote } = useNotes();
 
     return (
-        <div className="bg-green-100 shadow-md rounded-md p-4 m-4 min-w-64">
+        <div className="bg-yellow-100 shadow-lg rounded-xl p-4 m-4 min-w-48">
             <h3 className="text-xl font-bold mb-2">{note.title}</h3>
             <p className="text-gray-700 mb-4">{note.content}</p>
 
