@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
-    background-color:#BFD2BF ;
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+
+body {
+    background-color: #1A1A1A;
 }

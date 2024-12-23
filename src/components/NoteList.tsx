@@ -10,7 +10,7 @@ const NoteList: React.FC = () => {
             {filteredNotes.length > 0 ? (
                 filteredNotes.map(note => <NoteItem key={note.id} note={note} />)
             ) : (
-                <p className="text-center text-gray-500">No notes available</p>
+                <p className="text-center text-gray-500">Pas de notes disponibles</p>
             )}
         </div>
     );

@@ -1,15 +1,18 @@
+// context/NoteContext.tsx
 import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
 
 interface Note {
     id: number;
     title: string;
     content: string;
+    dateCreated: string; // Nouvelle propriété
 }
 
 interface NoteContextProps {
     notes: Note[];
     filteredNotes: Note[];
-    addNote: (note: Omit<Note, 'id'>) => void;
+    addNote: (note: Omit<Note, 'id' | 'dateCreated'>) => void;
+    updateNote: (note: Note) => void;
     deleteNote: (id: number) => void;
     searchNotes: (query: string) => void;
 }
@@ -36,10 +39,24 @@ export const NoteProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         setFilteredNotes(notes);
     }, [notes]);
 
-    const addNote = (note: Omit<Note, 'id'>) => {
-        const newNote = { ...note, id: Date.now() };
+    const addNote = (note: Omit<Note, 'id' | 'dateCreated'>) => {
+        const newNote = {
+            ...note,
+            id: Date.now(),
+            dateCreated: new Date().toISOString(), // Enregistre la date actuelle
+        };
         setNotes((prevNotes) => {
             const updatedNotes = [...prevNotes, newNote];
+            setFilteredNotes(updatedNotes);
+            return updatedNotes;
+        });
+    };
+
+    const updateNote = (updatedNote: Note) => {
+        setNotes((prevNotes) => {
+            const updatedNotes = prevNotes.map((note) =>
+                note.id === updatedNote.id ? updatedNote : note
+            );
             setFilteredNotes(updatedNotes);
             return updatedNotes;
         });
@@ -61,7 +78,16 @@ export const NoteProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     };
 
     return (
-        <NoteContext.Provider value={{ notes, filteredNotes, addNote, deleteNote, searchNotes }}>
+        <NoteContext.Provider
+            value={{
+                notes,
+                filteredNotes,
+                addNote,
+                updateNote,
+                deleteNote,
+                searchNotes,
+            }}
+        >
             {children}
         </NoteContext.Provider>
     );
