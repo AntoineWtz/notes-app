@@ -20,7 +20,7 @@ const NoteItem: React.FC<{ note: { id: number; title: string; content: string; d
     };
 
     return (
-        <div className="bg-backgroundLight shadow-md rounded-lg p-4 my-4 w-full max-w-lg mx-auto transition-all flex flex-col justify-between h-full">
+        <div className="bg-backgroundLight shadow-md rounded-2xl p-4 my-4 w-full max-w-lg mx-auto transition-all flex flex-col justify-between h-full">
             {isEditing ? (
                 <>
                     <input
@@ -39,13 +39,13 @@ const NoteItem: React.FC<{ note: { id: number; title: string; content: string; d
             ) : (
                 <>
                     <h3 className="text-xl font-bold mb-2 text-textDark">{note.title}</h3>
-                    <p className="text-sm text-textDark mb-2">
-                        Créée le : {new Date(note.dateCreated).toLocaleDateString()}
+                    <p className="text-xs text-textDark mb-2">
+                        {new Date(note.dateCreated).toLocaleDateString()}
                     </p>
                     <p className="text-textDark">{note.content}</p>
                 </>
             )}
-            <div className="flex justify-center gap-4 mt-4">
+            <div className="flex justify-center gap-8 mt-4">
                 <button
                     onClick={handleEdit}
                     className="bg-accent1 text-textLight py-1 px-4 rounded-lg"

@@ -42,7 +42,7 @@ const NoteModal: React.FC<NoteModalProps> = ({ onClose }) => {
                         <button
                             type="button"
                             onClick={onClose}
-                            className="bg-gray-300 text-textDark py-2 px-4 rounded-lg"
+                            className="bg-gray-300 text-textDark py-2 px-4 rounded-lg hover:bg-gray-200"
                         >
                             Annuler
                         </button>

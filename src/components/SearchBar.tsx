@@ -11,12 +11,12 @@ const SearchBar: React.FC = () => {
     };
 
     return (
-        <div className="relative mt-4 mb-8 lg:w-1/2 mx-auto">
+        <div className="relative m-8 lg:w-1/2 mx-auto">
             <input
                 type="text"
                 value={query}
                 onChange={handleSearch}
-                className="bg-backgroundLight w-full p-3 rounded-md shadow focus:ring focus:ring-accent2"
+                className="bg-backgroundLight w-full p-3 rounded-lg shadow focus:ring focus:ring-accent2"
                 placeholder="Rechercher une note..."
             />
         </div>
