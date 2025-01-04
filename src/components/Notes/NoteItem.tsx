@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useNotes } from '../context/NoteContext';
+import { useNotes } from '../../context/NoteContext';
+import { Trash2, CheckCircle } from 'lucide-react';
 
 const NoteItem: React.FC<{ note: { id: number; title: string; content: string; dateCreated: string } }> = ({ note }) => {
     const { deleteNote, updateNote } = useNotes();
@@ -45,18 +46,20 @@ const NoteItem: React.FC<{ note: { id: number; title: string; content: string; d
                     <p className="text-textDark">{note.content}</p>
                 </>
             )}
-            <div className="flex justify-center gap-8 mt-4">
-                <button
-                    onClick={handleEdit}
-                    className="bg-accent1 text-textLight py-1 px-4 rounded-lg"
-                >
-                    {isEditing ? 'Sauvegarder' : 'Modifier'}
-                </button>
+            <div className="flex flex-wrap justify-evenly mt-4 gap-2 sm:gap-4">
                 <button
                     onClick={() => deleteNote(note.id)}
-                    className="bg-red-500 text-textLight py-1 px-4 rounded-lg"
+                    className="flex items-center gap-2 bg-red-500 border border-transparent border-2 text-textLight py-1 px-3 sm:px-4 rounded-lg hover:bg-backgroundDark hover:text-textWhite hover:border-backgroundDark transition-all text-sm sm:text-base"
                 >
+                    <Trash2 size={16} />
                     Supprimer
+                </button>
+                <button
+                    onClick={handleEdit}
+                    className="flex items-center gap-2 bg-transparent border border-backgroundDark border-2 text-textDark py-1 px-4 sm:px-6 rounded-lg hover:bg-accent2 hover:border-transparent hover:text-textDark transition-all text-sm sm:text-base"
+                >
+                    <CheckCircle size={16} />
+                    {isEditing ? 'Sauvegarder' : 'Modifier'}
                 </button>
             </div>
         </div>

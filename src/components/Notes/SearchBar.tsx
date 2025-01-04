@@ -1,5 +1,6 @@
+// components/Notes/SearchBar.tsx
 import React, { useState } from 'react';
-import { useNotes } from '../context/NoteContext';
+import { useNotes } from '../../context/NoteContext';
 
 const SearchBar: React.FC = () => {
     const { searchNotes } = useNotes();
@@ -11,7 +12,7 @@ const SearchBar: React.FC = () => {
     };
 
     return (
-        <div className="relative m-8 lg:w-1/2 mx-auto">
+        <div className="relative sm:w-1/2 m-8 lg:w-1/2 mx-auto">
             <input
                 type="text"
                 value={query}

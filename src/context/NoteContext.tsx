@@ -5,7 +5,7 @@ interface Note {
     id: number;
     title: string;
     content: string;
-    dateCreated: string; // Nouvelle propriété
+    dateCreated: string;
 }
 
 interface NoteContextProps {
@@ -43,7 +43,7 @@ export const NoteProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         const newNote = {
             ...note,
             id: Date.now(),
-            dateCreated: new Date().toISOString(), // Enregistre la date actuelle
+            dateCreated: new Date().toISOString(),
         };
         setNotes((prevNotes) => {
             const updatedNotes = [...prevNotes, newNote];
