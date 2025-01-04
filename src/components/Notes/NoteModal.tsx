@@ -1,5 +1,7 @@
+// components/Notes/NoteModal.tsx
 import React, { useState } from 'react';
-import { useNotes } from '../context/NoteContext';
+import { useNotes } from '../../context/NoteContext';
+import { CheckCircle, XCircle } from 'lucide-react';
 
 interface NoteModalProps {
     onClose: () => void;
@@ -38,19 +40,21 @@ const NoteModal: React.FC<NoteModalProps> = ({ onClose }) => {
                         rows={4}
                         placeholder="Contenu de la note"
                     ></textarea>
-                    <div className="flex justify-end gap-2">
+                    <div className="flex justify-evenly gap-2">
                         <button
                             type="button"
                             onClick={onClose}
-                            className="bg-gray-300 text-textDark py-2 px-4 rounded-lg hover:bg-gray-200"
+                            className="flex items-center gap-2 bg-gray-300 text-textDark py-2 px-4 rounded-lg hover:bg-gray-200"
                         >
+                            <XCircle size={16} />
                             Annuler
                         </button>
                         <button
                             type="submit"
-                            className="bg-primary text-textLight py-2 px-4 rounded-lg hover:bg-accent2 hover:text-textDark"
+                            className="flex items-center gap-2 bg-backgroundDark text-textLight py-2 px-4 rounded-lg hover:bg-accent2 hover:text-textDark transition-all"
                         >
-                            Sauvegarder
+                            <CheckCircle size={16} />
+                            Ajouter
                         </button>
                     </div>
                 </form>
