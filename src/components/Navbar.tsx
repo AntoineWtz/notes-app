@@ -15,7 +15,6 @@ const Navbar: React.FC = () => {
         <nav className="bg-backgroundDark text-textLight py-4 px-6 fixed top-0 left-0 w-full z-50">
             <div className="container mx-auto flex justify-between items-center">
                 <Link to="/">
-                    {/* ajouter l'image asset note collante */}
                     <img src={Logo} alt="logo" className="h-8 w-8" />
                 </Link>
 
@@ -27,10 +26,10 @@ const Navbar: React.FC = () => {
                 </button>
 
                 <ul
-                    className={`flex flex-col sm:flex-row sm:gap-12 sm:items-center fixed sm:static top-16 left-0 w-full sm:w-auto bg-backgroundDark sm:bg-transparent transition-all duration-300 ${isMenuOpen ? 'block' : 'hidden sm:flex'
+                    className={`flex flex-col sm:flex-row sm:gap-12 sm:items-center fixed sm:static top-16 left-0 w-full sm:w-auto bg-backgroundDark transition-all duration-300 ${isMenuOpen ? 'block' : 'hidden sm:flex'
                         }`}
                 >
-                    <li className="text-center sm:text-left">
+                    <li className="text-center sm:text-left mb-2">
                         <Link
                             to="/"
                             className="block py-2 px-6 sm:px-0 sm:py-0 hover:text-secondary transition"
@@ -39,7 +38,7 @@ const Navbar: React.FC = () => {
                             Accueil
                         </Link>
                     </li>
-                    <li className="text-center sm:text-left">
+                    <li className="text-center sm:text-left mb-2">
                         <Link
                             to="/notes"
                             className="block py-2 px-6 sm:px-0 sm:py-0 hover:text-secondary transition"
@@ -48,7 +47,7 @@ const Navbar: React.FC = () => {
                             Notes
                         </Link>
                     </li>
-                    <li className="text-center sm:text-left">
+                    <li className="text-center sm:text-left mb-2">
                         <Link
                             to="/calendar"
                             className="block py-2 px-6 sm:px-0 sm:py-0 hover:text-secondary transition"
