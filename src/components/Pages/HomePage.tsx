@@ -7,7 +7,7 @@ const HomePage: React.FC = () => {
     return (
         <div className="text-center py-12 mt-20">
             <h1 className="text-4xl lg:text-5xl font-bold text-primary mb-6">My Office</h1>
-            <p className="text-base lg:text-lg text-textLight mb-8">
+            <p className="text-base lg:text-lg text-textLight mb-4">
                 Une application simple et intuitive pour organiser votre quotidien.
             </p>
             <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
