@@ -19,14 +19,21 @@ const EventContext = createContext<EventContextType | undefined>(undefined);
 
 export const EventProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [events, setEvents] = useState<Event[]>(() => {
-        const savedEvents = localStorage.getItem('events');
-        if (savedEvents) {
-            return JSON.parse(savedEvents);
+        try {
+            const savedEvents = localStorage.getItem('events');
+            return savedEvents ? JSON.parse(savedEvents) : [];
+        } catch (error) {
+            console.error('Erreur lors de la lecture des événements depuis le localStorage:', error);
+            return [];
         }
     });
 
     useEffect(() => {
-        localStorage.setItem('events', JSON.stringify(events));
+        try {
+            localStorage.setItem('events', JSON.stringify(events));
+        } catch (error) {
+            console.error('Erreur lors de l\'écriture des événements dans le localStorage:', error);
+        }
     }, [events]);
 
     const addOrUpdateEvent = (event: Omit<Event, 'id'>) => {
