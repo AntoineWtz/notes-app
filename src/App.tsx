@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import NotesPage from './components/Pages/NotesPage';
@@ -12,7 +12,7 @@ const App: React.FC = () => {
   return (
     <NoteProvider>
       <EventProvider>
-        <Router basename="/notes-app">
+        <Router>
           <div className="flex flex-col min-h-screen">
             <Navbar />
             <div className="flex-grow">
