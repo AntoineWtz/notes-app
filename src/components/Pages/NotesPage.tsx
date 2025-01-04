@@ -9,9 +9,9 @@ const NotesPage: React.FC = () => {
     const [isModalOpen, setModalOpen] = useState(false);
 
     return (
-        <div>
-            <h1 className="text-4xl font-bold m-4 text-center text-primary">Mes Notes</h1>
-            <p className="text-center text-textLight mb-8">
+        <div className="mt-20">
+            <h1 className="text-3xl lg:text-4xl font-bold m-4 text-center text-primary">Mes Notes</h1>
+            <p className="text-base lg:text-lg text-center text-textLight mb-8">
                 Ajoutez et organisez vos notes facilement.
             </p>
             <button
@@ -21,10 +21,10 @@ const NotesPage: React.FC = () => {
                 <Diff size={16} />
                 Créer une note
             </button>
-            <div className="m-4">
+            <div className="mx-2">
                 <SearchBar />
             </div>
-            <div className="m-4">
+            <div className="mx-2">
                 <NoteList />
             </div>
             {isModalOpen && <NoteModal onClose={() => setModalOpen(false)} />}

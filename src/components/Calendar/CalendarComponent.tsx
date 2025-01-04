@@ -9,7 +9,7 @@ const CalendarComponent: React.FC = () => {
     const [selectedDate, setSelectedDate] = useState<string | null>(null);
     const [currentMonth, setCurrentMonth] = useState(new Date());
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const { events, getEventForDate, deleteEvent } = useEvents();
+    const { getEventForDate } = useEvents();
 
     const handleMonthChange = (direction: number) => {
         const newMonth = new Date(currentMonth);
@@ -37,29 +37,30 @@ const CalendarComponent: React.FC = () => {
     const daysInMonth = getDaysInMonth(currentMonth.getFullYear(), currentMonth.getMonth());
 
     return (
-        <div className="p-4 bg-backgroundLight shadow-lg rounded-2xl mx-auto">
-            <div className="flex justify-evenly items-center mb-6">
+        <div className="p-4 sm:p-6 lg:p-8 bg-backgroundLight shadow-lg rounded-2xl mx-auto max-w-7xl">
+            <div className="flex justify-between items-center mb-4 sm:mb-6">
                 <button
                     onClick={() => handleMonthChange(-1)}
-                    className="flex items-center gap-2 bg-primary text-textLight py-2 px-4 rounded-lg hover:bg-backgroundDark transition-all"
+                    className="flex items-center gap-2 bg-primary text-textLight py-2 px-3 sm:px-4 rounded-lg hover:bg-backgroundDark transition-all"
                 >
                     <ArrowLeft size={16} />
-                    Mois précédent
+                    Précédent
                 </button>
-                <h2 className="text-2xl capitalize font-thin text-textDark">
-                    {currentMonth.toLocaleString('fr-FR', { month: 'long', year: 'numeric' })}
+                <h2 className="text-lg sm:text-2xl capitalize font-thin text-textDark">
+                    {currentMonth.toLocaleString('fr-FR', { month: 'long' })}
                 </h2>
                 <button
                     onClick={() => handleMonthChange(1)}
-                    className="flex items-center gap-2 bg-primary text-textLight py-2 px-4 rounded-lg hover:bg-backgroundDark transition-all"
+                    className="flex items-center gap-2 bg-primary text-textLight py-2 px-3 sm:px-4 rounded-lg hover:bg-backgroundDark transition-all"
                 >
-                    Mois suivant
+                    Suivant
                     <ArrowRight size={16} />
                 </button>
             </div>
-            <div className="grid grid-cols-7 gap-3 text-center">
+
+            <div className="grid grid-cols-7 gap-1 sm:gap-3 text-center text-xs sm:text-sm">
                 {['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'].map((day) => (
-                    <div key={day} className="font-thin text-textDark">
+                    <div key={day} className="font-bold text-textDark">
                         {day}
                     </div>
                 ))}
@@ -73,8 +74,8 @@ const CalendarComponent: React.FC = () => {
                     return (
                         <div
                             key={index}
-                            className={`p-4 text-left rounded-xl ${day
-                                ? 'bg-white border border-gray-300 shadow-md cursor-pointer hover:bg-gray-100 hover:text-textDark transition-all'
+                            className={`p-2 sm:p-3 text-left rounded-lg ${day
+                                ? 'bg-white border border-gray-300 shadow cursor-pointer hover:bg-gray-50 hover:text-textDark hover:shadow-md transition-all'
                                 : 'bg-gray-100'
                                 }`}
                             onClick={() => {
@@ -86,10 +87,15 @@ const CalendarComponent: React.FC = () => {
                         >
                             {day ? (
                                 <>
-                                    <p className="font-bold">{day}</p>
-                                    {dailyEvent && (
-                                        <p className="text-gray-500">
-                                            {dailyEvent.timeSlot} - {dailyEvent.title}
+                                    <p className="font-bold text-sm sm:text-base">{day}</p>
+                                    {dailyEvent ? (
+                                        <div className="text-xs sm:text-sm text-textDark truncate">
+                                            <p>{dailyEvent.timeSlot}</p>
+                                            <p>{dailyEvent.title}</p>
+                                        </div>
+                                    ) : (
+                                        <p className="text-gray-400 text-xs mt-2 truncate">
+                                            Aucun événement
                                         </p>
                                     )}
                                 </>
@@ -98,6 +104,7 @@ const CalendarComponent: React.FC = () => {
                     );
                 })}
             </div>
+
             {isModalOpen && selectedDate && (
                 <EventModal date={selectedDate} onClose={() => setIsModalOpen(false)} />
             )}

@@ -64,11 +64,11 @@ const EventModal: React.FC<EventModalProps> = ({ date, onClose }) => {
                         onChange={(e) => setTimeSlot(e.target.value)}
                         className="w-full p-3 mb-4 rounded-lg border border-gray-300 focus:ring focus:ring-primary"
                     />
-                    <div className="flex justify-evenly gap-4">
+                    <div className="flex flex-wrap justify-evenly gap-2 sm:gap-4">
                         <button
                             type="button"
                             onClick={onClose}
-                            className="flex items-center gap-2 bg-gray-300 text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-400 transition-all"
+                            className="flex items-center gap-2 bg-gray-300 text-gray-800 py-2 px-3 sm:px-4 rounded-lg hover:bg-gray-400 transition-all text-sm sm:text-base"
                         >
                             <XCircle size={16} />
                             Annuler
@@ -77,7 +77,7 @@ const EventModal: React.FC<EventModalProps> = ({ date, onClose }) => {
                             <button
                                 type="button"
                                 onClick={handleDelete}
-                                className="flex items-center gap-2 bg-red-500 text-textLight py-2 px-4 rounded-lg hover:bg-red-600 transition-all"
+                                className="flex items-center gap-2 bg-red-500 text-textLight py-2 px-3 sm:px-4 rounded-lg hover:bg-red-600 transition-all text-sm sm:text-base"
                             >
                                 <Trash2 size={16} />
                                 Supprimer
@@ -85,7 +85,7 @@ const EventModal: React.FC<EventModalProps> = ({ date, onClose }) => {
                         )}
                         <button
                             type="submit"
-                            className="flex items-center gap-2 bg-backgroundDark text-textLight py-2 px-4 rounded-lg hover:bg-accent2 hover:text-textDark transition-all"
+                            className="flex items-center gap-2 bg-backgroundDark text-textLight py-2 px-3 sm:px-4 rounded-lg hover:bg-accent2 hover:text-textDark transition-all text-sm sm:text-base"
                         >
                             <CheckCircle size={16} />
                             {isExistingEvent ? 'Modifier' : 'Ajouter'}
