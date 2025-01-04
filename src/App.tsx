@@ -12,7 +12,7 @@ const App: React.FC = () => {
   return (
     <NoteProvider>
       <EventProvider>
-        <Router>
+        <Router basename="/notes-app">
           <div className="flex flex-col min-h-screen">
             <Navbar />
             <div className="flex-grow">
