@@ -1,8 +1,9 @@
-// components/Calendar/EventModal.tsx
 import React, { useState, useEffect } from 'react';
 import { useEvents } from '../../context/EventContext';
 import { formatDateForDisplay } from '../../utils/DateUtils';
 import { Trash2, XCircle, CheckCircle } from 'lucide-react';
+
+const predefinedColors = ['#FF6B6B', '#6BCB77', '#4D96FF', '#FFD93D', '#FF9F6E', '#A56DFF', '#FF77E9', '#59F9FF'];
 
 interface EventModalProps {
     date: string;
@@ -13,6 +14,8 @@ const EventModal: React.FC<EventModalProps> = ({ date, onClose }) => {
     const { addOrUpdateEvent, getEventForDate, deleteEvent } = useEvents();
     const [title, setTitle] = useState('');
     const [timeSlot, setTimeSlot] = useState('');
+    const [location, setLocation] = useState('');
+    const [color, setColor] = useState(predefinedColors[0]);
     const [isExistingEvent, setIsExistingEvent] = useState(false);
 
     useEffect(() => {
@@ -20,18 +23,22 @@ const EventModal: React.FC<EventModalProps> = ({ date, onClose }) => {
         if (existingEvent) {
             setTitle(existingEvent.title);
             setTimeSlot(existingEvent.timeSlot);
+            setLocation(existingEvent.location);
+            setColor(existingEvent.color);
             setIsExistingEvent(true);
         } else {
             setTitle('');
             setTimeSlot('');
+            setLocation('');
+            setColor(predefinedColors[0]);
             setIsExistingEvent(false);
         }
     }, [date, getEventForDate]);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        if (!title.trim() || !timeSlot.trim()) return;
-        addOrUpdateEvent({ title, date, timeSlot });
+        if (!title.trim() || !timeSlot.trim() || !location.trim()) return;
+        addOrUpdateEvent({ title, date, timeSlot, location, color });
         onClose();
     };
 
@@ -64,6 +71,27 @@ const EventModal: React.FC<EventModalProps> = ({ date, onClose }) => {
                         onChange={(e) => setTimeSlot(e.target.value)}
                         className="w-full p-3 mb-4 rounded-lg border border-gray-300 focus:ring focus:ring-primary"
                     />
+                    <input
+                        type="text"
+                        placeholder="Lieu"
+                        value={location}
+                        onChange={(e) => setLocation(e.target.value)}
+                        className="w-full p-3 mb-4 rounded-lg border border-gray-300 focus:ring focus:ring-primary"
+                    />
+                    <div className="mb-4">
+                        <div className="flex items-center justify-center gap-2">
+                            {predefinedColors.map((presetColor) => (
+                                <button
+                                    key={presetColor}
+                                    type="button"
+                                    className={`w-8 h-8 rounded-full border ${color === presetColor ? 'border-black' : 'border-gray-100'
+                                        }`}
+                                    style={{ backgroundColor: presetColor }}
+                                    onClick={() => setColor(presetColor)}
+                                />
+                            ))}
+                        </div>
+                    </div>
                     <div className="flex flex-wrap justify-evenly gap-2 sm:gap-4">
                         <button
                             type="button"

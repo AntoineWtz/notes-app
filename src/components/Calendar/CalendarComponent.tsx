@@ -1,4 +1,3 @@
-// components/Calendar/CalendarComponent.tsx
 import React, { useState } from 'react';
 import { useEvents } from '../../context/EventContext';
 import EventModal from './EventModal';
@@ -41,7 +40,7 @@ const CalendarComponent: React.FC = () => {
             <div className="flex justify-between items-center mb-4 sm:mb-6">
                 <button
                     onClick={() => handleMonthChange(-1)}
-                    className="flex items-center gap-2 bg-primary text-textLight py-2 px-3 sm:px-4 rounded-lg hover:bg-backgroundDark transition-all"
+                    className="text-sm flex items-center gap-2 border border-backgroundDark bg-transparent text-textDark py-2 px-3 sm:px-4 rounded-lg hover:bg-backgroundDark hover:text-textLight transition-all"
                 >
                     <ArrowLeft size={16} />
                     Précédent
@@ -51,7 +50,7 @@ const CalendarComponent: React.FC = () => {
                 </h2>
                 <button
                     onClick={() => handleMonthChange(1)}
-                    className="flex items-center gap-2 bg-primary text-textLight py-2 px-3 sm:px-4 rounded-lg hover:bg-backgroundDark transition-all"
+                    className="text-sm flex items-center gap-2 border border-backgroundDark bg-transparent text-textDark py-2 px-3 sm:px-4 rounded-lg hover:bg-backgroundDark hover:text-textLight transition-all"
                 >
                     Suivant
                     <ArrowRight size={16} />
@@ -74,7 +73,7 @@ const CalendarComponent: React.FC = () => {
                     return (
                         <div
                             key={index}
-                            className={`p-2 sm:p-3 text-left rounded-lg ${day
+                            className={`relative p-3 text-left rounded-lg ${day
                                 ? 'bg-white border border-gray-300 shadow cursor-pointer hover:bg-gray-50 hover:text-textDark hover:shadow-md transition-all'
                                 : 'bg-gray-100'
                                 }`}
@@ -87,17 +86,29 @@ const CalendarComponent: React.FC = () => {
                         >
                             {day ? (
                                 <>
-                                    <p className="font-bold text-sm sm:text-base">{day}</p>
-                                    {dailyEvent ? (
-                                        <div className="text-xs sm:text-sm text-textDark truncate">
-                                            <p>{dailyEvent.timeSlot}</p>
-                                            <p>{dailyEvent.title}</p>
-                                        </div>
-                                    ) : (
-                                        <p className="text-gray-400 text-xs mt-2 truncate">
-                                            Aucun événement
-                                        </p>
+                                    <p className="absolute top-2 left-2 text-sm sm:text-base font-bold">
+                                        {day}
+                                    </p>
+
+                                    {dailyEvent && (
+                                        <div
+                                            className="absolute top-2 right-2 w-3 h-3 rounded-full"
+                                            style={{ backgroundColor: dailyEvent.color }}
+                                        ></div>
                                     )}
+
+                                    {dailyEvent && (
+                                        <div className="hidden sm:block mt-6 text-xs sm:text-sm text-textDark">
+                                            <p className="font-semibold truncate">{dailyEvent.title}</p>
+                                            <p className="text-gray-500 italic truncate">
+                                                {dailyEvent.timeSlot}
+                                            </p>
+                                            <p className="text-gray-400 text-xs truncate">
+                                                {dailyEvent.location}
+                                            </p>
+                                        </div>
+                                    )}
+                                    <p className="mt-6 text-gray-400 text-xs truncate"></p>
                                 </>
                             ) : null}
                         </div>

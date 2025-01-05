@@ -1,4 +1,3 @@
-// context/EventContext.tsx
 import React, { createContext, useState, useContext, useEffect } from 'react';
 
 interface Event {
@@ -6,6 +5,8 @@ interface Event {
     title: string;
     date: string;
     timeSlot: string;
+    location: string;
+    color: string;
 }
 
 interface EventContextType {
@@ -23,7 +24,7 @@ export const EventProvider: React.FC<{ children: React.ReactNode }> = ({ childre
             const savedEvents = localStorage.getItem('events');
             return savedEvents ? JSON.parse(savedEvents) : [];
         } catch (error) {
-            console.error('Erreur lors de la lecture des événements depuis le localStorage:', error);
+            console.error('Error reading events from localStorage:', error);
             return [];
         }
     });
@@ -32,7 +33,7 @@ export const EventProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         try {
             localStorage.setItem('events', JSON.stringify(events));
         } catch (error) {
-            console.error('Erreur lors de l\'écriture des événements dans le localStorage:', error);
+            console.error('Error saving events to localStorage:', error);
         }
     }, [events]);
 
