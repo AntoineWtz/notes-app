@@ -21,7 +21,7 @@ const NoteItem: React.FC<{ note: { id: number; title: string; content: string; d
     };
 
     return (
-        <div className="bg-backgroundLight shadow-md rounded-2xl p-4 my-4 w-full max-w-lg mx-auto transition-all flex flex-col justify-between h-full">
+        <div className="bg-backgroundLight shadow-md rounded-2xl p-4 my-4 w-full max-w-lg mx-auto transition-all flex flex-col justify-between h-full truncate">
             {isEditing ? (
                 <>
                     <input

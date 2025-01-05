@@ -36,7 +36,7 @@ const CalendarComponent: React.FC = () => {
     const daysInMonth = getDaysInMonth(currentMonth.getFullYear(), currentMonth.getMonth());
 
     return (
-        <div className="p-4 sm:p-6 lg:p-8 bg-backgroundLight shadow-lg rounded-2xl mx-auto max-w-7xl">
+        <div className="p-6 bg-backgroundLight shadow-lg rounded-2xl mx-auto max-w-7xl">
             <div className="flex justify-between items-center mb-4 sm:mb-6">
                 <button
                     onClick={() => handleMonthChange(-1)}
