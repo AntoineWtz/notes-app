@@ -1,12 +1,15 @@
+// components/Notes/NoteItem.tsx
 import React, { useState } from 'react';
 import { useNotes } from '../../context/NoteContext';
 import { Trash2, CheckCircle } from 'lucide-react';
+import ConfirmationModal from '../ConfirmationModal';
 
 const NoteItem: React.FC<{ note: { id: number; title: string; content: string; dateCreated: string } }> = ({ note }) => {
     const { deleteNote, updateNote } = useNotes();
     const [isEditing, setIsEditing] = useState(false);
     const [editTitle, setEditTitle] = useState(note.title);
     const [editContent, setEditContent] = useState(note.content);
+    const [isModalOpen, setModalOpen] = useState(false);
 
     const handleEdit = () => {
         if (isEditing) {
@@ -18,6 +21,11 @@ const NoteItem: React.FC<{ note: { id: number; title: string; content: string; d
             });
         }
         setIsEditing(!isEditing);
+    };
+
+    const handleDelete = () => {
+        deleteNote(note.id);
+        setModalOpen(false);
     };
 
     return (
@@ -40,28 +48,40 @@ const NoteItem: React.FC<{ note: { id: number; title: string; content: string; d
             ) : (
                 <>
                     <h3 className="text-xl font-bold mb-2 text-textDark">{note.title}</h3>
-                    <p className="text-xs text-textDark mb-2">
-                        {new Date(note.dateCreated).toLocaleDateString()}
+                    <p className="text-sm text-gray-500 mb-2">{new Date(note.dateCreated).toLocaleDateString()}</p>
+                    <p
+                        className="text-textDark whitespace-pre-wrap"
+                        style={{ whiteSpace: 'pre-wrap' }}
+                    >
+                        {note.content}
                     </p>
-                    <p className="text-textDark">{note.content}</p>
                 </>
             )}
-            <div className="flex flex-wrap justify-evenly mt-4 gap-2 sm:gap-4">
+            <div className="flex justify-evenly mt-4 gap-2 sm:gap-4">
                 <button
-                    onClick={() => deleteNote(note.id)}
-                    className="flex items-center gap-2 bg-red-500 border border-transparent border-2 text-textLight py-1 px-3 sm:px-4 rounded-lg hover:bg-backgroundDark hover:text-textWhite hover:border-backgroundDark transition-all text-sm sm:text-base"
+                    onClick={() => setModalOpen(true)}
+                    className="flex items-center gap-2 bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition-all"
                 >
                     <Trash2 size={16} />
                     Supprimer
                 </button>
                 <button
                     onClick={handleEdit}
-                    className="flex items-center gap-2 bg-transparent border border-backgroundDark border-2 text-textDark py-1 px-4 sm:px-6 rounded-lg hover:bg-accent2 hover:border-transparent hover:text-textDark transition-all text-sm sm:text-base"
+                    className="flex items-center gap-2 bg-transparent border border-gray-300 text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-200 transition-all"
                 >
                     <CheckCircle size={16} />
                     {isEditing ? 'Sauvegarder' : 'Modifier'}
                 </button>
             </div>
+
+            {/* Confirmation Modal */}
+            <ConfirmationModal
+                isOpen={isModalOpen}
+                title="Confirmer la suppression"
+                message="Êtes-vous sûr de vouloir supprimer cette note ? Cette action est irréversible."
+                onConfirm={handleDelete}
+                onCancel={() => setModalOpen(false)}
+            />
         </div>
     );
 };

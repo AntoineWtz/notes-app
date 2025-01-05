@@ -1,7 +1,9 @@
+// components/Calendar/EventModal.tsx
 import React, { useState, useEffect } from 'react';
 import { useEvents } from '../../context/EventContext';
 import { formatDateForDisplay } from '../../utils/DateUtils';
 import { Trash2, XCircle, CheckCircle } from 'lucide-react';
+import ConfirmationModal from '../ConfirmationModal';
 
 const predefinedColors = ['#FF6B6B', '#6BCB77', '#4D96FF', '#FFD93D', '#FF9F6E', '#A56DFF', '#FF77E9', '#59F9FF'];
 
@@ -17,6 +19,7 @@ const EventModal: React.FC<EventModalProps> = ({ date, onClose }) => {
     const [location, setLocation] = useState('');
     const [color, setColor] = useState(predefinedColors[0]);
     const [isExistingEvent, setIsExistingEvent] = useState(false);
+    const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
 
     useEffect(() => {
         const existingEvent = getEventForDate(date);
@@ -43,8 +46,17 @@ const EventModal: React.FC<EventModalProps> = ({ date, onClose }) => {
     };
 
     const handleDelete = () => {
+        setIsConfirmationOpen(true);
+    };
+
+    const confirmDelete = () => {
         deleteEvent(date);
+        setIsConfirmationOpen(false);
         onClose();
+    };
+
+    const cancelDelete = () => {
+        setIsConfirmationOpen(false);
     };
 
     const formattedDate = formatDateForDisplay(date);
@@ -121,6 +133,15 @@ const EventModal: React.FC<EventModalProps> = ({ date, onClose }) => {
                     </div>
                 </form>
             </div>
+            {isConfirmationOpen && (
+                <ConfirmationModal
+                    isOpen={isConfirmationOpen}
+                    title="Supprimer l'événement"
+                    message="Êtes-vous sûr de vouloir supprimer cet événement ? Cette action est irréversible."
+                    onConfirm={confirmDelete}
+                    onCancel={cancelDelete}
+                />
+            )}
         </div>
     );
 };
