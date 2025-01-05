@@ -1,3 +1,4 @@
+// components/Calendar/CalendarComponent.tsx
 import React, { useState } from 'react';
 import { useEvents } from '../../context/EventContext';
 import EventModal from './EventModal';
